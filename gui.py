@@ -48,7 +48,8 @@ class Application(tk.Frame):
                     target_base_path = self.unknown.get()
                 target_path = target_base_path + "/" + group_name
                 if not os.path.isdir(target_path):
-                    os.mkdir(target_path)
+                    logging.info("创建文件夹：" + target_path)
+                    os.makedirs(target_path)
                 logging.info("----开始移动" + file_name)
                 try:
                     if not os.path.exists(target_path + "/" + file_name):

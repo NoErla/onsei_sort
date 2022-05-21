@@ -34,10 +34,16 @@ def get_group_name(onsei_id):
     onsei_request = session.get(onsei_url, timeout=10).text
     group_name = bs_parse_movies(onsei_request)
     logging.info("社团名：" + group_name)
+    # 删除不符合windows系统文件命名要求的字符
+    group_name = re.sub('[\\/:*?\"<>|]', '', group_name)
     return group_name
 
 
 def scan_files(directory):
+    # 不存在则创建文件夹
+    if not os.path.exists(directory):
+        logging.info("创建文件夹：" + directory)
+        os.mkdir(directory)
     for file in os.listdir(directory):
         try:
             file_name = file.split(".")[0]
